@@ -124,6 +124,7 @@
 
             // Update the URL with the selected camera's ID
             history.replaceState(null, '', `?camera-id=${camera.id}`);
+            location.reload()
         }
 
         // Close the video container
