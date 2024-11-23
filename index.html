@@ -101,6 +101,7 @@
             if (player) {
                 player.dispose();
                 player = null;
+                location.reload()
             }
 
             // Show the video container
@@ -124,7 +125,6 @@
 
             // Update the URL with the selected camera's ID
             history.replaceState(null, '', `?camera-id=${camera.id}`);
-            location.reload()
         }
 
         // Close the video container
