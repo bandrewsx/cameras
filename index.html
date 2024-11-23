@@ -81,23 +81,20 @@
             if (camera.latitude && camera.longitude) {
                 const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
                 marker.bindPopup(camera.name);
-                marker.on('click', () => openCamera(camera));
+                marker.on('click', () => {
+                    if (player) {
+                        player.dispose();
+                    }
+                    openCamera(camera);
+                });
             } else {
                 console.warn(`Camera ${camera.id} is missing coordinates and won't be added to the map.`);
             }
         });
 
         function openCamera(camera) {
-            if (player) {
-                player.dispose();
-            }
-
-            // Clear previous video source and configure the new one
-            videoElement.innerHTML = '';
-            const source = document.createElement('source');
-            source.src = camera.stream;
-            source.type = 'application/x-mpegURL'; // HLS format
-            videoElement.appendChild(source);
+            videoElement.src = camera.stream;
+            videoElement.play();
 
             player = videojs(videoElement, {
                 autoplay: true,
