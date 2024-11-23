@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Boulder Traffic Cameras</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
+  <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+  <link rel="stylesheet" href="https://vjs.zencdn.net/8.0.4/video-js.css" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+    }
+    #content-container {
+      height: 100%;
+      width: 100%;
+      display: flex;
+    }
+    #map {
+      flex: 1;
+      height: 100%;
+    }
+    #video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    #video-container.active {
+      display: flex;
+    }
+    #close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff0000;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    #search-bar {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 1001;
+    }
+    #search-bar input {
+      padding: 5px;
+      width: 300px;
+    }
+    #camera-list {
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      z-index: 1002;
+      background: white;
+      color: black;
+      border: 1px solid #ccc;
+      width: 300px;
+      max-height: 300px;
+      overflow-y: auto;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #camera-list div {
+      padding: 10px;
+      cursor: pointer;
+    }
+    #camera-list div:hover {
+      background: #f0f0f0;
+    }
+    video {
+      width: 80%;
+      height: auto;
+      max-height: 90%;
+    }
+  </style>
+</head>
+<body>
+<div id="content-container">
+  <!-- Map -->
+  <div id="map"></div>
+
+  <!-- Video Container -->
+  <div id="video-container">
+    <button id="close-btn">X</button>
+    <video id="camera-video" class="video-js vjs-big-play-centered" controls preload="auto"></video>
+  </div>
+
+  <!-- Search Bar -->
+  <div id="search-bar">
+    <input type="text" id="camera-search" placeholder="Search for a camera..." />
+    <div id="camera-list"></div>
+  </div>
+</div>
+
+<script src="cameras.js"></script>
+<script>
+  const map = L.map('map').setView([40.015, -105.2705], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+  }).addTo(map);
+
+  const videoContainer = document.getElementById('video-container');
+  const videoElement = document.getElementById('camera-video');
+  const closeBtn = document.getElementById('close-btn');
+  const searchInput = document.getElementById('camera-search');
+  const cameraList = document.getElementById('camera-list');
+  const urlParams = new URLSearchParams(window.location.search);
+
+  let player; // Video.js player instance
+
+  // Initialize the map with camera markers
+  cameras.forEach(camera => {
+    const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
+    marker.bindPopup(camera.name);
+    marker.on('click', () => openCamera(camera));
+  });
+
+  // Open the camera stream when a marker is clicked
+  function openCamera(camera) {
+    if (player) {
+      player.dispose();
+    }
+    videoContainer.classList.add('active');
+    document.getElementById('search-bar').style.display = 'none'; // Hide search bar
+
+    videoElement.innerHTML = ''; // Clear previous sources
+    videoElement.setAttribute('poster', camera.thumbnail); // Set the thumbnail
+    videoElement.innerHTML = `<source src="${camera.stream}" type="application/x-mpegURL">`;
+
+    // Initialize Video.js
+    player = videojs(videoElement, {
+      autoplay: true,
+      controls: true,
+    });
+
+    // Update the URL with the selected camera's ID
+    history.replaceState(null, '', `?camera-id=${camera.id}`);
+  }
+
+  // Close the video stream and return to the map
+  closeBtn.addEventListener('click', () => {
+    if (player) {
+      player.dispose();
+      player = null;
+    }
+    videoContainer.classList.remove('active');
+    document.getElementById('search-bar').style.display = 'block'; // Show search bar again
+    history.replaceState(null, '', window.location.pathname); // Remove camera-id from URL
+  });
+
+  // Check if there's a camera-id in the URL and open the corresponding camera
+  const cameraId = urlParams.get('camera-id');
+  if (cameraId) {
+    const camera = cameras.find(cam => cam.id === cameraId);
+    if (camera) openCamera(camera);
+  }
+
+  // Dynamic Search Functionality
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    cameraList.innerHTML = ''; // Clear the list
+
+    if (query) {
+      cameras
+        .filter(camera => camera.name.toLowerCase().includes(query))
+        .forEach(camera => {
+          const item = document.createElement('div');
+          item.textContent = camera.name;
+          item.addEventListener('click', () => {
+            openCamera(camera);
+            cameraList.innerHTML = ''; // Clear list after selection
+            searchInput.value = ''; // Clear the search input
+          });
+          cameraList.appendChild(item);
+        });
+    }
+  });
+</script>
+</body>
+</html>
