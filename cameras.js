@@ -18,37 +18,41 @@ const cameras = [
   {
     "id": "camera-3",
     "name": "Foothills Pkwy and Arapahoe Ave",
-    "location": "Boulder, CO",
+    "latitude": 40.015296,
+    "longitude": -105.240722,
     "thumbnail": "https://webappsprod.bouldercolorado.gov/webcams/foothills-arapahoe.jpg",
     "stream": "https://videostream.bouldercolorado.gov/live/smil:foothills_and_arapahoe.smil/playlist.m3u8"
   },
   {
     "id": "camera-4",
-    "name": "28th And Iris Ave",
-    "location": "Boulder, CO",
+    "name": "28th and Iris Ave",
+    "latitude": 40.038986,
+    "longitude": -105.259793,
     "thumbnail": "https://webappsprod.bouldercolorado.gov/webcams/28th-iris.jpg",
     "stream": "https://videostream.bouldercolorado.gov/live/smil:28th_and_iris.smil/playlist.m3u8"
   },
   {
     "id": "camera-5",
     "name": "US 36 MP 039.20 EB at CO 157/Foothills Pkwy",
-    "location": "Boulder, CO",
+    "latitude": 40.013890,
+    "longitude": -105.247330,
     "thumbnail": "",
     "stream": "https://publicstreamer2.cotrip.org/rtplive/036E03920CAM1RP1/chunklist_w744211294.m3u8"
   },
   {
     "id": "camera-6",
     "name": "US 36 MP 043.15 WB at McCaslin Blvd and US 36 WB On-ramp",
-    "location": "Boulder, CO",
+    "latitude": 39.951400,
+    "longitude": -105.164420,
     "thumbnail": "",
     "stream": "https://publicstreamer2.cotrip.org/rtplive/036W04315CAM1RP1/chunklist_w1570063898.m3u8"
   },
   {
     "id": "camera-7",
     "name": "US 36 MP 054.65 WB : 0.3 miles W of Federal Blvd",
-    "location": "Boulder, CO",
+    "latitude": 39.845370,
+    "longitude": -105.024460,
     "thumbnail": "",
     "stream": "https://publicstreamer3.cotrip.org/rtplive/036W05465CAM1MED/chunklist_w671228802.m3u8"
   },
-
 ];
