@@ -71,7 +71,8 @@
 
 <script src="cameras.js"></script>
 <script>
-  const map = L.map('map').setView([40.015, -105.2705], 13);
+  // Initialize the map
+const map = L.map('map').setView([40.015, -105.2705], 13);
 
 // Add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -98,14 +99,7 @@ const searchControl = new GeoSearch.GeoSearchControl({
 // Add the search control to the map
 map.addControl(searchControl);
 
-const videoContainer = document.getElementById('video-container');
-const videoElement = document.getElementById('camera-video');
-const closeBtn = document.getElementById('close-btn');
-const urlParams = new URLSearchParams(window.location.search);
-
-let player; // Video.js player instance
-
-// Initialize the map with camera markers
+// Add camera markers to the map
 cameras.forEach(camera => {
   if (camera.latitude && camera.longitude) {
     const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
@@ -114,8 +108,12 @@ cameras.forEach(camera => {
   }
 });
 
-// Open the camera stream
+// Open camera video
 function openCamera(camera) {
+  const videoContainer = document.getElementById('video-container');
+  const videoElement = document.getElementById('camera-video');
+  let player;
+
   // Dispose of any existing player instance
   if (player) {
     player.dispose();
@@ -144,16 +142,17 @@ function openCamera(camera) {
 }
 
 // Close the video container
-closeBtn.addEventListener('click', () => {
+document.getElementById('close-btn').addEventListener('click', () => {
   if (player) {
     player.dispose();
     player = null;
   }
-  videoContainer.classList.remove('active');
-  history.replaceState(null, '', window.location.pathname); // Remove camera-id from URL
+  document.getElementById('video-container').classList.remove('active');
+  history.replaceState(null, '', window.location.pathname);
 });
 
-// Open the camera view if `?camera-id` is set in the URL
+// Open the camera if ?camera-id is set in the URL
+const urlParams = new URLSearchParams(window.location.search);
 const cameraId = urlParams.get('camera-id');
 if (cameraId) {
   const camera = cameras.find(cam => cam.id === cameraId);
@@ -161,6 +160,7 @@ if (cameraId) {
     openCamera(camera);
   }
 }
+
 
 </script>
 </body>
