@@ -56,150 +56,22 @@ const cameras = [
         "thumbnail": "",
         "stream": "https://publicstreamer3.cotrip.org/rtplive/036W05465CAM1MED/chunklist_w671228802.m3u8"
     },
+    {
+        "id": "camera-8",
+        "name": "US 36 MP 041.90 EB : 1.7 W of McCaslin Blvd",
+        "latitude": 39.845370,
+        "longitude": -105.024460,
+        "thumbnail": "",
+        "stream": "https://publicstreamer2.cotrip.org/rtplive/036E04190CAM1RHS/chunklist_w137495299.m3u8"
+    },
+    {
+        "id": "camera-8",
+        "name": "US 36 MP 041.90 EB : 1.7 W of McCaslin Blvd",
+        "latitude": 39.845370,
+        "longitude": -105.024460,
+        "thumbnail": "",
+        "stream": "https://publicstreamer3.cotrip.org/rtplive/036E05055CAM1RHS/chunklist_w1320657572.m3u8"
+    },
 
-    // Newly added camera streams with .m3u8 links
-    {
-        id: "camera-8",
-        name: "US-36 @ CO-157 (W View)",
-        latitude: 39.985155,
-        longitude: -105.232497,
-        thumbnail: "https://ie.trafficland.com/v2.0/10744/full?system=weatherbug-web&pubtoken=07a3ca255962aba7f182ad0ccd6c8f7777830b3b661570181bbb42ec9ac7f454&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/10744.m3u8"
-    },
-    {
-        id: "camera-9",
-        name: "CO 93 MP 013.65 NB at Eldorado Springs Dr/CO 170",
-        latitude: 39.953704,
-        longitude: -105.231680,
-        thumbnail: "https://ie.trafficland.com/v2.0/435344/full?system=weatherbug-web&pubtoken=0a1e9e5a64682102d6cde32fe72b5b507a42d9db7168710eee0659a9c439fd52&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435344.m3u8"
-    },
-    {
-        id: "camera-10",
-        name: "CO 93 MP 010.40 SB: 1.7 miles S of CO 128 in Golden",
-        latitude: 39.909969,
-        longitude: -105.240801,
-        thumbnail: "https://ie.trafficland.com/v2.0/435301/full?system=weatherbug-web&pubtoken=384b9118cd86f389ce8df6d0566de6b58771eef2c770b8b316818315e0a21c55&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435301.m3u8"
-    },
-    {
-        id: "camera-11",
-        name: "US-36 w/o 88th St (E View)",
-        latitude: 39.94688,
-        longitude: -105.149291,
-        thumbnail: "https://ie.trafficland.com/v2.0/421040/full?system=weatherbug-web&pubtoken=87282cbed8fbc5803ab63f0e0ba7892981429d8de0097d82362181c7a5a8de9b&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/421040.m3u8"
-    },
-    {
-        id: "camera-12",
-        name: "CO 93 MP 008.80 SB at Westgate Rd in Golden",
-        latitude: 39.885171,
-        longitude: -105.241175,
-        thumbnail: "https://ie.trafficland.com/v2.0/435327/full?system=weatherbug-web&pubtoken=33255a7c5c60f1e49fe14927eeb38325e8418609b402bc197ecf3cc39beb30bf&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435327.m3u8"
-    },
-    {
-        id: "camera-13",
-        name: "CO-128 MP 007.20 WB at Interlocken Pkwy",
-        latitude: 39.916798,
-        longitude: -105.11132,
-        thumbnail: "https://ie.trafficland.com/v2.0/435401/full?system=weatherbug-web&pubtoken=e9867435437f0917b2dcc6bc9f2e4dbb2a25a871cd23ea698b739409ab32db10&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435401.m3u8"
-    },
-    {
-        id: "camera-14",
-        name: "CO 93 MP 006.85 NB: 0.8 miles S of Coal Creek Canyon Rd/CO 72",
-        latitude: 39.858465,
-        longitude: -105.234066,
-        thumbnail: "https://ie.trafficland.com/v2.0/435389/full?system=weatherbug-web&pubtoken=fbb241d5c905816c0cc3934fef487e4fee89da497031a026679eec5630c807d3&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435389.m3u8"
-    },
-    {
-        id: "camera-15",
-        name: "CO 93 MP 010.40 SB: 1.7 miles S of CO 128 in Golden",
-        latitude: 39.909969,
-        longitude: -105.240801,
-        thumbnail: "https://ie.trafficland.com/v2.0/435301/full?system=weatherbug-web&pubtoken=384b9118cd86f389ce8df6d0566de6b58771eef2c770b8b316818315e0a21c55&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435301.m3u8"
-    },
-    {
-        id: "camera-16",
-        name: "I-25 MP 229.10 SB at E Baseline Rd/CO 7",
-        latitude: 40.000301,
-        longitude: -104.981468,
-        thumbnail: "https://ie.trafficland.com/v2.0/435333/full?system=weatherbug-web&pubtoken=d730f689882732fccc2a5bf3bd039f266e73d91a7fc9893c87a80fc9329ac392&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435333.m3u8"
-    },
-    {
-        id: "camera-17",
-        name: "CO 93 MP 002.50 NB : 0.6 miles S of W 56th Ave in Golden",
-        latitude: 39.791873,
-        longitude: -105.230278,
-        thumbnail: "https://ie.trafficland.com/v2.0/435334/full?system=weatherbug-web&pubtoken=049aa1d6d5d718c170236ea780e833b3b41ab688bd4ce5ee8bc70f18eb54eeca&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435334.m3u8"
-    },
-    {
-        id: "camera-18",
-        name: "I-70 MP 265.70 EB at Ward Rd",
-        latitude: 39.77964288,
-        longitude: -105.1382644,
-        thumbnail: "https://ie.trafficland.com/v2.0/435232/full?system=weatherbug-web&pubtoken=3eb31168e15c23b10a6d8dd99f362dbc0c0fd2054244c0a27c9451697db5434&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435232.m3u8"
-    },
-    {
-        id: "camera-19",
-        name: "US-6 MP 271.60 WB at CO 58/CO 93 in Golden",
-        latitude: 39.867686,
-        longitude: -104.986632,
-        thumbnail: "https://ie.trafficland.com/v2.0/435226/full?system=weatherbug-web&pubtoken=40a0a7ebfec1abfd351c7509ad38fced37806b2f76fc04a60297ec31ad9f1c67&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435226.m3u8"
-    },
-    {
-        id: "camera-20",
-        name: "I-70 MP 244.35 EB at US 6/US 40",
-        latitude: 39.740001,
-        longitude: -105.227571,
-        thumbnail: "https://ie.trafficland.com/v2.0/435410/full?system=weatherbug-web&pubtoken=054967bf548aef059513d419622f13240ddaca85fc02e23fe99c123aa38ca361&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435410.m3u8"
-    },
-    {
-        id: "camera-21",
-        name: "US-36 e/o Lowell Blvd (E View)",
-        latitude: 39.838279,
-        longitude: -105.031287,
-        thumbnail: "https://ie.trafficland.com/v2.0/6823/full?system=weatherbug-web&pubtoken=f84f4ac7370741e6c60806bc8917cd69a56974de227a785e56eb95ceff5492e7&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/6823.m3u8"
-    },
-    {
-        id: "camera-22",
-        name: "I-25 s/o Thornton Pkwy (N View)",
-        latitude: 39.862144,
-        longitude: -104.987889,
-        thumbnail: "https://ie.trafficland.com/v2.0/10514/full?system=weatherbug-web&pubtoken=2d40024e4a7875d3a6825e1a79820b08f1a76dca23ab3681b58406dd334382af&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/10514.m3u8"
-    },
-    {
-        id: "camera-23",
-        name: "I-70 MP 265.70 EB at Ward Rd",
-        latitude: 39.790728,
-        longitude: -104.993914,
-        thumbnail: "https://ie.trafficland.com/v2.0/435226/full?system=weatherbug-web&pubtoken=40a0a7ebfec1abfd351c7509ad38fced37806b2f76fc04a60297ec31ad9f1c67&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435226.m3u8"
-    },
-    {
-        id: "camera-24",
-        name: "I-70 MP 244.35 EB at US 6/US 40",
-        latitude: 39.736674,
-        longitude: -105.31732,
-        thumbnail: "https://ie.trafficland.com/v2.0/420742/full?system=weatherbug-web&pubtoken=73a1ce9be1bab9304a4b6395b51a1a24295444e510ad6181d1b869df5134b601&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/420742.m3u8"
-    },
-    {
-        id: "camera-25",
-        name: "US-6 MP 262.35 EB : 2.2 miles W of Tunnel 3",
-        latitude: 39.735252,
-        longitude: -105.36647,
-        thumbnail: "https://ie.trafficland.com/v2.0/435340/full?system=weatherbug-web&pubtoken=dd81a2e086fc67ce5e4024d511281c7ecc3ee7ba96731b4d0586e6e8c3f83542&refreshRate=600000",
-        stream: "https://ie.trafficland.com/v2.0/435340.m3u8"
-    }
+
 ];
