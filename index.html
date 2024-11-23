@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Colorado Traffic Cameras</title>
+    <title>Boulder Traffic Cameras</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.3/leaflet.js"></script>
@@ -81,41 +81,50 @@
             if (camera.latitude && camera.longitude) {
                 const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
                 marker.bindPopup(camera.name);
-                marker.on('click', () => {
-                    videoElement.src = camera.stream;
-                    player.src(camera.stream);
-                    player.play();
-                });
+                marker.on('click', () => openCamera(camera));
             } else {
                 console.warn(`Camera ${camera.id} is missing coordinates and won't be added to the map.`);
             }
+        });
+
+        function openCamera(camera) {
+            if (player) {
+                player.dispose();
+            }
+
+            // Clear previous video source and configure the new one
+            videoElement.innerHTML = '';
+            const source = document.createElement('source');
+            source.src = camera.stream;
+            source.type = 'application/x-mpegURL'; // HLS format
+            videoElement.appendChild(source);
+
+            player = videojs(videoElement, {
+                autoplay: true,
+                controls: true,
+            });
+
+            videoContainer.classList.add('active');
+            history.replaceState(null, '', `?camera-id=${camera.id}`);
+        }
+
+        closeBtn.addEventListener('click', () => {
+            if (player) {
+                player.dispose();
+            }
+            videoContainer.classList.remove('active');
+            history.replaceState(null, '', window.location.pathname);
         });
 
         const cameraId = urlParams.get('camera-id');
         if (cameraId) {
             const camera = cameras.find(cam => cam.id === cameraId);
             if (camera) {
-                videoElement.src = camera.stream;
-                videoElement.play();
-
-                player = videojs(videoElement, {
-                    autoplay: true,
-                    controls: true,
-                });
-
-                videoContainer.classList.add('active');
+                openCamera(camera);
             } else {
                 console.warn(`No camera found with ID: ${cameraId}`);
             }
         }
-
-        closeBtn.addEventListener('click', () => {
-            if (player) {
-                player.pause();
-            }
-            videoContainer.classList.remove('active');
-            history.replaceState(null, '', window.location.pathname);
-        });
     </script>
 </body>
 </html>
