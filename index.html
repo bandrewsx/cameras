@@ -82,40 +82,33 @@
                 const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
                 marker.bindPopup(camera.name);
                 marker.on('click', () => {
-                    if (player) {
-                        player.dispose();
+                    videoElement.src = camera.stream;
+                    videoElement.play();
+
+                    if (!player) {
+                        player = videojs(videoElement, {
+                            autoplay: true,
+                            controls: true,
+                        });
+                    } else {
+                        player.src(camera.stream);
+                        player.play();
                     }
-                    openCamera(camera);
+
+                    videoContainer.classList.add('active');
+                    history.replaceState(null, '', `?camera-id=${camera.id}`);
                 });
             } else {
                 console.warn(`Camera ${camera.id} is missing coordinates and won't be added to the map.`);
             }
         });
 
-        function openCamera(camera) {
-            videoElement.src = camera.stream;
-            videoElement.play();
-
-            player = videojs(videoElement, {
-                autoplay: true,
-                controls: true,
-            });
-
-            player.on('error', (error) => {
-                console.error('Video.js error:', error);
-                alert('Error loading video stream. Please try again later.');
-            });
-
-            videoContainer.classList.add('active');
-            history.replaceState(null, '', `?camera-id=${camera.id}`);
-        }
-
         closeBtn.addEventListener('click', () => {
             if (player) {
-                player.dispose();
+                player.pause();
+                videoContainer.classList.remove('active');
+                history.replaceState(null, '', window.location.pathname);
             }
-            videoContainer.classList.remove('active');
-            history.replaceState(null, '', window.location.pathname);
         });
 
         const cameraId = urlParams.get('camera-id');
