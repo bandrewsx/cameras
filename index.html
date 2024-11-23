@@ -56,88 +56,75 @@
 </head>
 <body>
 
-<div id="map"></div>
+    <div id="map"></div>
 
-<div id="video-container">
-    <button id="close-btn">Close</button>
-    <video id="camera-video" class="video-js vjs-big-play-centered" controls preload="auto"></video>
-</div>
+    <div id="video-container">
+        <button id="close-btn">Close</button>
+        <video id="camera-video" class="video-js vjs-big-play-centered" controls preload="auto"></video>
+    </div>
 
-<script src="cameras.js"></script>
-<script>
-    // Initialize the map
-    const map = L.map('map').setView([40.015, -105.2705], 13);
+    <script src="cameras.js"></script>
+    <script>
+        const map = L.map('map').setView([40.015, -105.2705], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+        }).addTo(map);
 
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-    }).addTo(map);
+        const videoContainer = document.getElementById('video-container');
+        const videoElement = document.getElementById('camera-video');
+        const closeBtn = document.getElementById('close-btn');
+        const urlParams = new URLSearchParams(window.location.search);
 
-    const videoContainer = document.getElementById('video-container');
-    const videoElement = document.getElementById('camera-video');
-    const closeBtn = document.getElementById('close-btn');
-    const urlParams = new URLSearchParams(window.location.search);
+        let player;
 
-    let player; // Video.js player instance
-
-    // Add camera markers to the map
-    cameras.forEach(camera => {
-        if (camera.latitude && camera.longitude) {
-            const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
-            marker.bindPopup(camera.name);
-            marker.on('click', () => openCamera(camera));
-        } else {
-            console.warn(`Camera ${camera.id} is missing coordinates and won't be added to the map.`);
-        }
-    });
-
-    // Open the camera stream
-    function openCamera(camera) {
-        if (player) {
-            player.dispose();
-            player = null;
-        }
-
-        videoElement.src = camera.stream;
-        videoElement.play();
-
-        player = videojs(videoElement, {
-            autoplay: true,
-            controls: true,
+        cameras.forEach(camera => {
+            if (camera.latitude && camera.longitude) {
+                const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
+                marker.bindPopup(camera.name);
+                marker.on('click', () => openCamera(camera));
+            } else {
+                console.warn(`Camera ${camera.id} is missing coordinates and won't be added to the map.`);
+            }
         });
 
-        player.on('error', (error) => {
-            console.error('Video.js error:', error);
-            alert('Error loading video stream. Please try again later.');
+        function openCamera(camera) {
+            if (player) {
+                player.dispose();
+            }
+
+            // Clear previous video source and configure the new one
+            videoElement.innerHTML = '';
+            const source = document.createElement('source');
+            source.src = camera.stream;
+            source.type = 'application/x-mpegURL'; // HLS format
+            videoElement.appendChild(source);
+
+            player = videojs(videoElement, {
+                autoplay: true,
+                controls: true,
+            });
+
+            videoContainer.classList.add('active');
+            history.replaceState(null, '', `?camera-id=${camera.id}`);
+        }
+
+        closeBtn.addEventListener('click', () => {
+            if (player) {
+                player.dispose();
+            }
+            videoContainer.classList.remove('active');
+            history.replaceState(null, '', window.location.pathname);
         });
 
-        videoContainer.classList.add('active');
-
-        // Update the URL with the selected camera's ID
-        history.replaceState(null, '', `?camera-id=${camera.id}`);
-    }
-
-    // Close the video container
-    closeBtn.addEventListener('click', () => {
-        if (player) {
-            player.dispose();
-            player = null;
+        const cameraId = urlParams.get('camera-id');
+        if (cameraId) {
+            const camera = cameras.find(cam => cam.id === cameraId);
+            if (camera) {
+                openCamera(camera);
+            } else {
+                console.warn(`No camera found with ID: ${cameraId}`);
+            }
         }
-        videoContainer.classList.remove('active');
-        history.replaceState(null, '', window.location.pathname);
-    });
-
-    // Check for ?camera-id in the URL and open the corresponding camera
-    const cameraId = urlParams.get('camera-id');
-    if (cameraId) {
-        const camera = cameras.find(cam => cam.id === cameraId);
-        if (camera) {
-            openCamera(camera);
-        } else {
-            console.warn(`No camera found with ID: ${cameraId}`);
-        }
-    }
-</script>
-
+    </script>
 </body>
 </html>
