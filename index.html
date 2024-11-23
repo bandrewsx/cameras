@@ -104,6 +104,11 @@
                 controls: true,
             });
 
+            player.on('error', (error) => {
+                console.error('Video.js error:', error);
+                alert('Error loading video stream. Please try again later.');
+            });
+
             videoContainer.classList.add('active');
             history.replaceState(null, '', `?camera-id=${camera.id}`);
         }
