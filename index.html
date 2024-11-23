@@ -82,7 +82,9 @@
                 const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
                 marker.bindPopup(camera.name);
                 marker.on('click', () => {
-                    window.location.href = `?camera-id=${camera.id}`;
+                    videoElement.src = camera.stream;
+                    player.src(camera.stream);
+                    player.play();
                 });
             } else {
                 console.warn(`Camera ${camera.id} is missing coordinates and won't be added to the map.`);
