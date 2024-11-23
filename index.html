@@ -83,6 +83,8 @@
   const searchControl = new window.GeoSearch.GeoSearchControl({
     provider: provider,
     style: 'bar',
+    showMarker: true,
+    retainZoomLevel: false,
   });
   map.addControl(searchControl);
 
@@ -95,9 +97,11 @@
 
   // Initialize the map with camera markers
   cameras.forEach(camera => {
-    const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
-    marker.bindPopup(camera.name);
-    marker.on('click', () => openCamera(camera));
+    if (camera.latitude && camera.longitude) {
+      const marker = L.marker([camera.latitude, camera.longitude]).addTo(map);
+      marker.bindPopup(camera.name);
+      marker.on('click', () => openCamera(camera));
+    }
   });
 
   // Open the camera stream
