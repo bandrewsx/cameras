@@ -33,22 +33,6 @@ const cameras = [
         "stream": "https://videostream.bouldercolorado.gov/live/smil:28th_and_iris.smil/playlist.m3u8"
     },
     {
-        "id": "camera-5",
-        "name": "US 36 MP 039.20 EB at CO 157/Foothills Pkwy",
-        "latitude": 40.013890,
-        "longitude": -105.247330,
-        "thumbnail": "",
-        "stream": "https://publicstreamer.cotrip.org/rtplive/036E03920CAM1RP1/chunklist_w744211294.m3u8"
-    },
-    {
-        "id": "camera-6",
-        "name": "US 36 MP 043.15 WB at McCaslin Blvd and US 36 WB On-ramp",
-        "latitude": 39.951400,
-        "longitude": -105.164420,
-        "thumbnail": "",
-        "stream": "https://publicstreamer.cotrip.org/rtplive/036W04315CAM1RP1/chunklist_w1570063898.m3u8"
-    },
-    {
         "id": "camera-7",
         "name": "US 36 MP 054.65 WB : 0.3 miles W of Federal Blvd",
         "latitude": 39.845370,
@@ -58,20 +42,13 @@ const cameras = [
     },
     {
         "id": "camera-8",
-        "name": "US 36 MP 041.90 EB : 1.7 W of McCaslin Blvd",
-        "latitude": 39.845370,
-        "longitude": -105.024460,
-        "thumbnail": "",
-        "stream": "https://publicstreamer2.cotrip.org/rtplive/036E04190CAM1RHS/chunklist_w137495299.m3u8"
-    },
-    {
-        "id": "camera-8",
-        "name": "US 36 MP 041.90 EB : 1.7 W of McCaslin Blvd",
-        "latitude": 39.845370,
-        "longitude": -105.024460,
+        "name": "US 36 MP 050.55 EB : 0.2 miles E of W 104th Ave",
+        "latitude": 39.9053,
+        "longitude": -105.0572,
         "thumbnail": "",
         "stream": "https://publicstreamer3.cotrip.org/rtplive/036E05055CAM1RHS/chunklist_w1320657572.m3u8"
-    },
+    }
+
 
 
 ];
